@@ -79,6 +79,48 @@ const platillos = [
         precio: '$280',
         imagen: 'img/plato-6.jpg',
         categoria: 'bebidas'
+    },
+    {
+        nombre: 'Huevos Benedictinos',
+        descripcion: 'Huevos pochados sobre muffin inglés artesanal, bañados en salsa holandesa trufada y acompañados de espárragos.',
+        precio: '$290',
+        imagen: 'img/plato-7.png',
+        categoria: 'desayunos'
+    },
+    {
+        nombre: 'Pancakes de Frutos Rojos',
+        descripcion: 'Esponjosos pancakes artesanales con coulis de frutos del bosque, sirope de maple puro y crema batida.',
+        precio: '$240',
+        imagen: 'img/plato-8.png',
+        categoria: 'desayunos'
+    },
+    {
+        nombre: 'Ensalada de Burrata',
+        descripcion: 'Burrata fresca italiana sobre un nido de tomates heirloom, pesto de albahaca genovesa y reducción de balsámico.',
+        precio: '$320',
+        imagen: 'img/plato-9.png',
+        categoria: 'comidas'
+    },
+    {
+        nombre: 'Cóctel de Autor',
+        descripcion: 'Nuestra firma mixológica: una infusión ahumada de licores premium con notas cítricas y decoración floral.',
+        precio: '$250',
+        imagen: 'img/plato-10.png',
+        categoria: 'bebidas'
+    },
+    {
+        nombre: 'Copa de Vino Tinto Reserva',
+        descripcion: 'Selección exclusiva de nuestro sommelier, añejado en barrica de roble francés con intensas notas a frutos negros.',
+        precio: '$380',
+        imagen: 'img/plato-11.png',
+        categoria: 'bebidas'
+    },
+    {
+        nombre: 'Café Espresso Especialidad',
+        descripcion: 'Extracción perfecta de granos de altura seleccionados a mano, con perfil de tueste medio y notas a chocolate amargo.',
+        precio: '$120',
+        imagen: 'img/plato-12.png',
+        categoria: 'bebidas'
     }
 ];
 

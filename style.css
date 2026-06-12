@@ -651,8 +651,31 @@ ul {
 /* Contenedor del Menú (Grid) */
 .menu-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--espacio-lg);
+    max-height: 850px;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+/* Scrollbar específico para la cuadrícula del menú */
+.menu-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.menu-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.menu-grid::-webkit-scrollbar-thumb {
+    background: var(--color-dorado-oscuro);
+    border-radius: 10px;
+}
+
+.menu-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dorado);
 }
 
 .menu-item {
@@ -678,7 +701,7 @@ ul {
 .menu__tarjeta-imagen-contenedor {
     position: relative;
     width: 100%;
-    height: 220px;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
 }
 
