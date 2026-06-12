@@ -648,20 +648,22 @@ ul {
     box-shadow: var(--sombra-dorada);
 }
 
-/* Contenedor del Menú (Grid) */
+/* Contenedor del Menú (Scroll Horizontal) */
 .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
     gap: var(--espacio-lg);
-    max-height: 850px;
-    overflow-y: auto;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 24px;
+    /* Suavidad en el desplazamiento en dispositivos táctiles */
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
 }
 
-/* Scrollbar específico para la cuadrícula del menú */
+/* Scrollbar específico para la cuadrícula del menú (Horizontal) */
 .menu-grid::-webkit-scrollbar {
-    width: 6px;
+    height: 8px;
 }
 
 .menu-grid::-webkit-scrollbar-track {
@@ -679,6 +681,9 @@ ul {
 }
 
 .menu-item {
+    /* Forzar el ancho de las tarjetas y evitar que se encojan */
+    flex: 0 0 clamp(280px, 80vw, 340px);
+    scroll-snap-align: start;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
