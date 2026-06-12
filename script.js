@@ -42,37 +42,43 @@ const platillos = [
         nombre: 'Filete Mignon',
         descripcion: 'Corte premium de res con reducción de vino tinto, puré de trufa negra y vegetales asados de temporada.',
         precio: '$580',
-        imagen: 'img/plato-1.jpg'
+        imagen: 'img/plato-1.jpg',
+        categoria: 'comidas'
     },
     {
         nombre: 'Risotto de Trufa Negra',
         descripcion: 'Arroz arborio cremoso perfumado con trufa negra fresca, parmesano reggiano y aceite de oliva extra virgen.',
         precio: '$420',
-        imagen: 'img/plato-2.jpg'
+        imagen: 'img/plato-2.jpg',
+        categoria: 'comidas'
     },
     {
         nombre: 'Salmón Glaseado con Miso',
         descripcion: 'Filete de salmón noruego glaseado con miso blanco, acompañado de edamame y jengibre encurtido.',
         precio: '$490',
-        imagen: 'img/plato-3.jpg'
+        imagen: 'img/plato-3.jpg',
+        categoria: 'comidas'
     },
     {
         nombre: 'Carpaccio de Res',
         descripcion: 'Láminas finas de res premium con parmesano, rúcula silvestre, alcaparras y vinagreta de limón Meyer.',
         precio: '$350',
-        imagen: 'img/plato-4.jpg'
+        imagen: 'img/plato-4.jpg',
+        categoria: 'desayunos'
     },
     {
         nombre: 'Langosta Thermidor',
         descripcion: 'Media langosta gratinada con salsa cremosa de cognac, queso gruyère y finas hierbas frescas.',
         precio: '$780',
-        imagen: 'img/plato-5.jpg'
+        imagen: 'img/plato-5.jpg',
+        categoria: 'comidas'
     },
     {
         nombre: 'Tarta de Chocolate Belga',
         descripcion: 'Delicada tarta de chocolate belga 70% cacao con coulis de frutos rojos y hoja de oro comestible.',
         precio: '$280',
-        imagen: 'img/plato-6.jpg'
+        imagen: 'img/plato-6.jpg',
+        categoria: 'bebidas'
     }
 ];
 
@@ -171,7 +177,7 @@ function renderizarMenu() {
     platillos.forEach((plato, indice) => {
         // --- Contenedor principal de la tarjeta ---
         const tarjeta = document.createElement('article');
-        tarjeta.classList.add('menu__tarjeta', 'revelar');
+        tarjeta.classList.add('menu__tarjeta', 'revelar', 'menu-item', plato.categoria);
         // Retraso escalonado para la animación de aparición
         tarjeta.style.transitionDelay = `${indice * 0.1}s`;
 
@@ -578,7 +584,56 @@ function generarParticulasHero() {
 
 
 // =====================================================================
-// 10. INICIALIZACIÓN — CUANDO EL DOM ESTÁ LISTO
+// 10. FILTRO DINÁMICO DEL MENÚ (TABS)
+// =====================================================================
+
+/**
+ * Escucha los clics en las pestañas del menú y filtra las tarjetas.
+ */
+function configurarFiltroMenu() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const items = document.querySelectorAll('.menu-item');
+
+    if (!tabs.length || !items.length) return;
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remover 'active' de todos y asignarlo al actual
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const filtro = tab.getAttribute('data-filter');
+
+            items.forEach(item => {
+                if (filtro === 'all' || item.classList.contains(filtro)) {
+                    item.style.display = 'block';
+                    
+                    // Retraso minúsculo para que el display aplique antes de la opacidad
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    
+                    // Ocultar del DOM tras la transición (300ms)
+                    setTimeout(() => {
+                        // Verificamos si la pestaña cambió mientras tanto
+                        if (!tab.classList.contains('active')) return;
+                        if (filtro !== 'all' && !item.classList.contains(filtro)) {
+                            item.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            });
+        });
+    });
+}
+
+
+// =====================================================================
+// 11. INICIALIZACIÓN — CUANDO EL DOM ESTÁ LISTO
 // =====================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -591,6 +646,7 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarScrollSuave();
     configurarNavbarScroll();
     configurarFlechasCarrusel();
+    configurarFiltroMenu();
 
     // Iniciar carrusel automático de testimonios
     iniciarCarruselAutomatico();
