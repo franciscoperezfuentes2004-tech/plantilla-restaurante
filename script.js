@@ -675,7 +675,63 @@ function configurarFiltroMenu() {
 
 
 // =====================================================================
-// 11. INICIALIZACIÓN — CUANDO EL DOM ESTÁ LISTO
+// 11. EFECTOS AVANZADOS: PARALLAX Y TILT 3D
+// =====================================================================
+
+function configurarEfectosAvanzados() {
+    // 1. Parallax en el Hero al hacer scroll
+    const heroContent = document.querySelector('.hero__contenido');
+    const heroParticulas = document.getElementById('heroParticulas');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        // Aplicar parallax solo si estamos cerca del hero
+        if (scrolled < window.innerHeight) {
+            if (heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+                heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 1.5;
+            }
+            if (heroParticulas) {
+                heroParticulas.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        }
+    }, { passive: true });
+
+    // 2. Efecto Tilt 3D en la imagen de Historia
+    const historiaMarco = document.querySelector('.historia__imagen-marco');
+    const historiaImg = document.querySelector('.historia__imagen');
+
+    if (historiaMarco && historiaImg) {
+        historiaMarco.addEventListener('mousemove', (e) => {
+            const rect = historiaMarco.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Inclinación máxima de 8 grados
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            
+            historiaImg.style.transform = `scale(1.05) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            historiaImg.style.transition = 'none';
+        });
+
+        historiaMarco.addEventListener('mouseleave', () => {
+            historiaImg.style.transform = `scale(1) perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            historiaImg.style.transition = 'transform 0.6s ease';
+        });
+        
+        historiaMarco.addEventListener('mouseenter', () => {
+            historiaImg.style.transition = 'transform 0.1s ease';
+        });
+    }
+}
+
+
+// =====================================================================
+// 12. INICIALIZACIÓN — CUANDO EL DOM ESTÁ LISTO
 // =====================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -689,6 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarNavbarScroll();
     configurarFlechasCarrusel();
     configurarFiltroMenu();
+    configurarEfectosAvanzados();
 
     // Iniciar carrusel automático de testimonios
     iniciarCarruselAutomatico();

@@ -115,6 +115,59 @@ body {
     color: var(--color-blanco);
 }
 
+/* --- Decoración de Orbes (Fondo) --- */
+.orbes-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.orbe {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    animation: orbeFloat 20s infinite alternate ease-in-out;
+}
+
+.orbe-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--color-dorado-oscuro);
+    top: -10%;
+    left: -10%;
+}
+
+.orbe-2 {
+    width: 500px;
+    height: 500px;
+    background: rgba(211, 47, 47, 0.2);
+    bottom: -20%;
+    right: -10%;
+    animation-delay: -5s;
+    animation-duration: 25s;
+}
+
+.orbe-3 {
+    width: 300px;
+    height: 300px;
+    background: rgba(211, 47, 47, 0.15);
+    top: 40%;
+    left: 50%;
+    animation-delay: -10s;
+    animation-duration: 30s;
+}
+
+@keyframes orbeFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(100px, 50px) scale(1.2); }
+}
+
 /* ========== UTILIDADES GLOBALES ========== */
 .contenedor {
     width: 100%;
@@ -588,15 +641,34 @@ ul {
 }
 
 .seccion__separador {
-    width: 60px;
-    height: 2px;
+    position: relative;
+    width: 120px;
+    height: 1px;
     background: linear-gradient(to right, transparent, var(--color-dorado), transparent);
-    margin: var(--espacio-sm) auto;
+    margin: var(--espacio-md) auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seccion__separador::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--color-fondo);
+    border: 1px solid var(--color-dorado);
+    transform: rotate(45deg);
 }
 
 .seccion__separador--izquierda {
     margin-left: 0;
     background: linear-gradient(to right, var(--color-dorado), transparent);
+    justify-content: flex-start;
+}
+
+.seccion__separador--izquierda::before {
+    left: 0;
 }
 
 .seccion__descripcion {
@@ -698,9 +770,9 @@ ul {
 }
 
 .menu__tarjeta:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-borde-hover);
-    box-shadow: var(--sombra-dorada);
+    transform: translateY(-6px);
+    border-color: var(--color-dorado);
+    box-shadow: 0 10px 40px rgba(211, 47, 47, 0.25), 0 0 15px rgba(211, 47, 47, 0.15) inset;
 }
 
 .menu__tarjeta-imagen-contenedor {
@@ -1099,8 +1171,21 @@ ul {
     transition: var(--transicion);
 }
 
+/* Hover 3D para redes sociales y enlaces */
+.footer__red {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+    display: inline-block;
+}
+
+.footer__red:hover {
+    transform: translateY(-6px) scale(1.15);
+    color: var(--color-dorado);
+}
+
 .footer__lista-item a:hover {
     color: var(--color-dorado);
+    transform: translateX(4px);
+    display: inline-block;
 }
 
 .footer__lista-item svg {
